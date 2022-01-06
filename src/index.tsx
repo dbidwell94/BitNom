@@ -6,6 +6,7 @@ import App from './App';
 import theme from './theme';
 
 const GlobalStyle = createGlobalStyle`
+
     html {
         font-size: 62.5%;
         overflow-x: hidden;
@@ -15,9 +16,27 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         padding: 0;
         margin: 0;
+        scroll-behavior: smooth;
+        &::-webkit-scrollbar {
+          width: 1rem;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          border-radius: 40rem;
+          background: ${({ theme }) => theme.colors.text.baseNoAlpha};
+          filter: opacity(.25);
+
+          &:hover {
+            filter: opacity(1);
+          }
+        }
     }
 
-    h1, h2, h3, h4, h5, h6, p, small, a, input, textarea {
+    h1, h2, h3, h4, h5, h6, p, small, a, input, textarea, button {
         color: ${({ theme }) => theme.colors.text.highEmphasis};
         font-family: 'Ubuntu', sans-serif;
     }
@@ -56,7 +75,6 @@ const GlobalStyle = createGlobalStyle`
 
     code {
         font-family: monospace;
-        background: ${({ theme }) => theme.colors.secondary};
     }
 `;
 

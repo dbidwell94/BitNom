@@ -45,6 +45,7 @@ export default function (env: any, args: any): Configuration {
     output: {
       path: path.join(__dirname, 'dist'),
       filename: isProduction ? '[chunkhash].bundle.js' : '[name].js',
+      publicPath: '/',
     },
   };
 }

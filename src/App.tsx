@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import HexInput from './components/HexInput';
+import DNSHexView from './sections/DNSHexView';
+import NotImplemented from './sections/NotImplemented';
 
 const AppContainer = styled.div`
   width: 100%;
@@ -12,11 +15,13 @@ const AppContainer = styled.div`
 `;
 
 export default function App() {
-  const [hexInput, setHexInput] = useState<[string, string][]>();
-
   return (
     <AppContainer>
-      <HexInput onChange={(value) => setHexInput(value)} />
+      <Routes>
+        <Route path='/' element={<HexInput />} />
+        <Route path='/dns/*' element={<DNSHexView />} />
+        <Route path='/tcpudp/*' element={<NotImplemented />} />
+      </Routes>
     </AppContainer>
   );
 }

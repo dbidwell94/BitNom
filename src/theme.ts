@@ -8,6 +8,7 @@ const theme = {
     onBase: '#ffffff80',
     notOnBase: '#000000',
     text: {
+      baseNoAlpha: '#ffffff',
       highEmphasis: '#ffffff87',
       mediumEmphasis: '#ffffff60',
       disabled: '#ffffff38',

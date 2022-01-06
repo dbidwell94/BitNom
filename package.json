@@ -29,6 +29,7 @@
     "@types/styled-components": "^5.1.19",
     "@types/webpack-dev-server": "^4.5.1",
     "babel-loader": "^8.2.3",
+    "babel-plugin-styled-components": "^2.0.2",
     "compression-webpack-plugin": "^9.2.0",
     "html-webpack-plugin": "^5.5.0",
     "source-map-loader": "^3.0.1",
