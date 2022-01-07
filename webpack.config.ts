@@ -2,6 +2,7 @@ import { Configuration } from 'webpack';
 import path from 'path';
 import HtmlPlugin from 'html-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 
 const DEV_PORT = 2021;
 
@@ -24,7 +25,7 @@ export default function (env: any, args: any): Configuration {
       ],
     },
     resolve: {
-      extensions: ['.tsx', '.jsx', '.ts', '.js'],
+      extensions: ['.tsx', '.jsx', '.ts', '.js', '...'],
     },
     plugins: [
       new HtmlPlugin({
@@ -50,6 +51,7 @@ export default function (env: any, args: any): Configuration {
     optimization: isProduction
       ? {
           minimize: true,
+          minimizer: [new TerserPlugin()],
           removeEmptyChunks: true,
           splitChunks: {
             chunks: 'async',
