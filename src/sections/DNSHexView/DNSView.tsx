@@ -79,10 +79,6 @@ export default function DNSView(props: IDNSViewProps) {
     truncated: null,
   });
 
-  useEffect(() => {
-    console.log(packetErrors);
-  }, [packetErrors]);
-
   const bytes = useMemo<string[]>(() => {
     return nibbles.map((nibble) => nibble.join(''));
   }, [nibbles]);
@@ -297,7 +293,9 @@ export default function DNSView(props: IDNSViewProps) {
       </DNSViewContainer>
       <DNSErrorsContainer>
         {Object.values(packetErrors).map((error, index) => (
-          <p className='error'>{error}</p>
+          <p className='error' key={`dns-error-${index}-${error}`}>
+            {error}
+          </p>
         ))}
       </DNSErrorsContainer>
     </>

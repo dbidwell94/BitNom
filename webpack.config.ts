@@ -9,7 +9,7 @@ export default function (env: any, args: any): Configuration {
   const isProduction: boolean = args.mode === 'production';
   return {
     entry: [path.join(__dirname, 'src', 'index.tsx')],
-    mode: 'development',
+    mode: isProduction ? 'production' : 'development',
     module: {
       rules: [
         {
@@ -34,7 +34,7 @@ export default function (env: any, args: any): Configuration {
         favicon: path.join(__dirname, 'public', 'favicon.ico'),
         title: 'Packet Crunch',
       }),
-      new CompressionPlugin(),
+      isProduction ? new CompressionPlugin() : () => {},
     ],
     devServer: {
       historyApiFallback: true,
@@ -47,6 +47,6 @@ export default function (env: any, args: any): Configuration {
       filename: isProduction ? '[chunkhash].bundle.js' : '[name].js',
       publicPath: '/',
     },
-    devtool: 'inline-source-map',
+    devtool: isProduction ? false : 'inline-source-map',
   };
 }
