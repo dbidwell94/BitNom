@@ -15,7 +15,7 @@ const DNSHexViewContainer = styled.div`
 export default function DNSHexView() {
   const params = useParams();
 
-  const bytes = useMemo<[string, string][]>(() => {
+  const nibbles = useMemo<[string, string][]>(() => {
     const bytes: [string, string][] = [];
 
     if (!params['*']) return bytes;
@@ -32,8 +32,8 @@ export default function DNSHexView() {
 
   return (
     <DNSHexViewContainer>
-      <HexView bytes={bytes} className='dns-hex-view' />
-      <DNSView bytes={bytes} />
+      {/* <HexView nibbles={nibbles} className='dns-hex-view' /> */}
+      <DNSView nibbles={nibbles} />
     </DNSHexViewContainer>
   );
 }

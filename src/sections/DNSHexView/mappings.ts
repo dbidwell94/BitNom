@@ -8,6 +8,8 @@ export enum DNSOpcode {
   DSO = 6,
 }
 
+export const DNSOpcodeKeys = Object.keys(DNSOpcode).filter((code) => typeof code === 'number');
+
 export enum RCode {
   NoErr = 0,
   FmtErr = 1,
@@ -16,3 +18,5 @@ export enum RCode {
   NtImpl = 4,
   Refuse = 5,
 }
+
+export const RCodeKeys = Object.keys(RCode).filter((code) => typeof code === 'number');

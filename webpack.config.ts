@@ -47,5 +47,6 @@ export default function (env: any, args: any): Configuration {
       filename: isProduction ? '[chunkhash].bundle.js' : '[name].js',
       publicPath: '/',
     },
+    devtool: 'inline-source-map',
   };
 }

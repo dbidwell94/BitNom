@@ -16,7 +16,6 @@ const HexViewContainer = styled.div`
     grid-gap: 0.25rem;
     background: ${({ theme }) => theme.colors.primary};
     padding: ${({ theme }) => theme.spacing.basePadding / 2}rem;
-    /* border-radius: ${({ theme }) => theme.spacing.basePadding}rem; */
     box-shadow: 0rem 0rem 1rem 0rem ${({ theme }) => theme.colors.onBase};
     overflow-y: auto;
     code {
@@ -26,17 +25,17 @@ const HexViewContainer = styled.div`
 `;
 
 interface IHexViewProps {
-  bytes: [string, string][];
+  nibbles: [string, string][];
   className?: string;
 }
 
 export default function HexView(props: IHexViewProps) {
-  const { bytes, className } = props;
+  const { nibbles, className } = props;
 
   return (
     <HexViewContainer className={className}>
       <div id='hex'>
-        {bytes.map((byte, index) => {
+        {nibbles.map((byte, index) => {
           return <code key={`${byte} - ${index}`}>{byte}</code>;
         })}
       </div>

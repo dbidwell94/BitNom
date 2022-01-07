@@ -1,28 +1,27 @@
 import React from 'react';
-import { hexToNumber } from '../../utils';
+import { DNSQuery } from './types';
 
 interface IDNSQueryProps {
-  bytes: string[];
-  startingIndex: number;
+  query: DNSQuery;
+  className?: string;
 }
 
-export default function DNSQuery(props: IDNSQueryProps): [JSX.Element, number] {
-  const { bytes, startingIndex } = props;
-  return [
+export default function Query(props: IDNSQueryProps) {
+  const { query, className } = props;
+  return (
     <>
-      <div className='grid-item' style={{ gridColumn: '1 / -1' }}>
-        <h6>QName</h6>
-        <p>{hexToNumber(bytes[10] + bytes[11])}</p>
+      <div className={`grid-item ${className ? className : ''}`} style={{ gridColumn: '1 / -1' }}>
+        <h6>Query Name</h6>
+        <p>{query.qName}</p>
       </div>
-      <div className='grid-item' style={{ gridColumn: '1 / -1' }}>
-        <h6>QType</h6>
-        <p>{hexToNumber(bytes[10] + bytes[11])}</p>
+      <div className={`grid-item ${className ? className : ''}`} style={{ gridColumn: '1 / -1' }}>
+        <h6>Query Type</h6>
+        <p>{query.qType}</p>
       </div>
-      <div className='grid-item' style={{ gridColumn: '1 / -1' }}>
-        <h6>QClass</h6>
-        <p>{hexToNumber(bytes[10] + bytes[11])}</p>
+      <div className={`grid-item ${className ? className : ''}`} style={{ gridColumn: '1 / -1' }}>
+        <h6>Query Class</h6>
+        <p>{query.qClass}</p>
       </div>
-    </>,
-    1,
-  ];
+    </>
+  );
 }
