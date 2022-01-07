@@ -101,9 +101,9 @@ export default function DNSView(props: IDNSViewProps) {
       const qr = hexToNumber(bytes[2]) >> 8 === 0 ? 'Req' : 'Res';
       toReturn.qr = qr;
       // OPCode
-      const op = DNSOpcode[(hexToNumber(bytes[2]) & 0b01111000) >> 3];
+      const op = (hexToNumber(bytes[2]) & 0b01111000) >> 3;
       if (DNSOpcodeKeys.includes(op)) {
-        toReturn.op = op as unknown as DNSOpcode;
+        toReturn.op = DNSOpcode[op] as unknown as DNSOpcode;
       } else {
         errors.op = 'Invalid OPCode';
       }
@@ -123,9 +123,9 @@ export default function DNSView(props: IDNSViewProps) {
       const ra = (hexToNumber(bytes[3]) & 0b10000000) >> 7 === 1;
       toReturn.recursionAvailable = ra;
       // RCode
-      const rCode = RCode[hexToNumber(bytes[3]) & 0b00001111];
+      const rCode = hexToNumber(bytes[3]) & 0b00001111;
       if (RCodeKeys.includes(rCode)) {
-        toReturn.resultCode = rCode as unknown as RCode;
+        toReturn.resultCode = RCode[rCode] as unknown as RCode;
       } else {
         errors.resultCode = 'Invalid result code';
       }
