@@ -47,6 +47,16 @@ export default function (env: any, args: any): Configuration {
       filename: isProduction ? '[chunkhash].bundle.js' : '[name].js',
       publicPath: '/',
     },
+    optimization: isProduction
+      ? {
+          minimize: true,
+          removeEmptyChunks: true,
+          splitChunks: {
+            chunks: 'async',
+            usedExports: true,
+          },
+        }
+      : undefined,
     devtool: isProduction ? false : 'inline-source-map',
   };
 }
