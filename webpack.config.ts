@@ -2,6 +2,7 @@ import { Configuration } from 'webpack';
 import path from 'path';
 import HtmlPlugin from 'html-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 
 const DEV_PORT = 2021;
 
@@ -32,9 +33,13 @@ export default function (env: any, args: any): Configuration {
         inject: 'head',
         scriptLoading: 'defer',
         favicon: path.join(__dirname, 'public', 'favicon.ico'),
-        title: 'Packet Crunch',
+        title: 'BitNom',
+        hash: true,
       }),
       new CompressionPlugin(),
+      new CopyPlugin({
+        patterns: [{ from: path.join(__dirname, 'public', 'robots.txt') }],
+      }),
     ],
     devServer: {
       historyApiFallback: true,
@@ -48,5 +53,10 @@ export default function (env: any, args: any): Configuration {
       publicPath: '/',
     },
     devtool: 'inline-source-map',
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
   };
 }
