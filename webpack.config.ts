@@ -3,6 +3,7 @@ import path from 'path';
 import HtmlPlugin from 'html-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 
 const DEV_PORT = 2021;
 
@@ -10,7 +11,7 @@ export default function (env: any, args: any): Configuration {
   const isProduction: boolean = args.mode === 'production';
   return {
     entry: [path.join(__dirname, 'src', 'index.tsx')],
-    mode: 'development',
+    mode: isProduction ? 'production' : 'development',
     module: {
       rules: [
         {
@@ -25,7 +26,7 @@ export default function (env: any, args: any): Configuration {
       ],
     },
     resolve: {
-      extensions: ['.tsx', '.jsx', '.ts', '.js'],
+      extensions: ['.tsx', '.jsx', '.ts', '.js', '...'],
     },
     plugins: [
       new HtmlPlugin({
@@ -36,10 +37,10 @@ export default function (env: any, args: any): Configuration {
         title: 'BitNom',
         hash: true,
       }),
-      new CompressionPlugin(),
       new CopyPlugin({
         patterns: [{ from: path.join(__dirname, 'public', 'robots.txt') }],
       }),
+      isProduction ? new CompressionPlugin() : () => {},
     ],
     devServer: {
       historyApiFallback: true,
@@ -52,11 +53,17 @@ export default function (env: any, args: any): Configuration {
       filename: isProduction ? '[chunkhash].bundle.js' : '[name].js',
       publicPath: '/',
     },
-    devtool: 'inline-source-map',
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-      },
-    },
+    optimization: isProduction
+      ? {
+          minimize: true,
+          minimizer: [new TerserPlugin()],
+          removeEmptyChunks: true,
+          splitChunks: {
+            chunks: 'all',
+            usedExports: true,
+          },
+        }
+      : undefined,
+    devtool: isProduction ? false : 'inline-source-map',
   };
 }

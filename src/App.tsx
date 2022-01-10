@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import HexInput from './components/HexInput';
-import DNSHexView from './sections/DNSHexView';
-import NotImplemented from './sections/NotImplemented';
+
+const DNSHexView = lazy(() => import('./sections/DNSHexView'));
+const NotImplemented = lazy(() => import('./sections/NotImplemented'));
+const HexInput = lazy(() => import('./components/HexInput'));
 
 const AppContainer = styled.div`
   width: 100%;
@@ -18,9 +19,32 @@ export default function App() {
   return (
     <AppContainer>
       <Routes>
-        <Route path='/' element={<HexInput />} />
-        <Route path='/dns/*' element={<DNSHexView />} />
-        <Route path='/tcpudp/*' element={<NotImplemented />} />
+        <Route
+          path='/'
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <HexInput />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path='/dns/*'
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <DNSHexView />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path='/tcpudp/*'
+          element={
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <NotImplemented />
+            </Suspense>
+          }
+        />
       </Routes>
     </AppContainer>
   );

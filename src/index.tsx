@@ -84,12 +84,14 @@ if ((module as any).hot) {
 
 ReactDOM.render(
   <>
-    <Router>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App />
-      </ThemeProvider>
-    </Router>
+    <React.StrictMode>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <App />
+        </ThemeProvider>
+      </Router>
+    </React.StrictMode>
   </>,
   document.querySelector('#root')
 );
